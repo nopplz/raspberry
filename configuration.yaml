@@ -1,0 +1,41 @@
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+input_boolean:
+  cover_automation:
+    name: Activer automatisation des volets
+    icon: mdi:window-shutter
+
+input_number:
+  cover_day_offset:
+    name: Minutes après le lever du soleil
+    icon: mdi:timer
+    min: -60
+    max: 60
+    step: 10
+  cover_night_offset:
+    name: Minutes après le coucher du soleil
+    icon: mdi:timer
+    min: -60
+    max: 60
+    step: 10
+
+mqtt:
+  broker: 127.0.0.1
+sensor:
+  - platform: "mqtt_voletBattants"
+    name: "Temperature"
+    device_id: "temp"
+    state_topic: "home-assistant/room/temperature"
